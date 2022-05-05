@@ -1,5 +1,6 @@
 package com.dharmendra.intermediatekotlin.todo
 
+import android.content.ComponentCallbacks
 import android.content.Context
 import android.graphics.Paint
 import android.util.AttributeSet
@@ -14,18 +15,21 @@ class TodoView @JvmOverloads constructor(context: Context,
 attrs: AttributeSet?=null,
 defStyleAttr: Int=1)  : ConstraintLayout(context,attrs,defStyleAttr) {
 
-    fun initView(todo: Todo) {
+    fun initView(todo: Todo,callbacks: (() -> Unit)?=null) {
         descriptionView.setText(todo.description)
         completeCheckBox.setChecked(todo.isComplete)
         if (todo.isComplete) {
             createStrikeThrough()
         }
-        setUpCheckStateListener()
+        setUpCheckStateListener(todo,callbacks )
     }
 
-    private fun setUpCheckStateListener() {
+    private fun setUpCheckStateListener(todo:Todo,callbacks: (()->Unit)?=null) {
+
         completeCheckBox.setOnCheckedChangeListener {
-                button: CompoundButton?, isChecked: Boolean ->
+               _, isChecked->
+            todo.isComplete = isChecked
+            callbacks?.invoke()
             if (isChecked)
                 createStrikeThrough()
             else
