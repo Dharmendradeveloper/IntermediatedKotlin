@@ -7,18 +7,34 @@ import com.dharmendra.intermediatekotlin.Note
 import com.dharmendra.intermediatekotlin.notes.NoteView
 import com.dharmendra.intermediatekotlin.R
 import com.dharmendra.intermediatekotlin.foundations.BaseRecyclerAdapter
+import kotlinx.android.synthetic.main.view_add_button.view.*
 
 class NoteAdapter( notesList:MutableList<Note> = mutableListOf()):
     BaseRecyclerAdapter<Note>(notesList) {
 
+    override fun getItemCount(): Int = masterList.size+1
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)=
-        MyViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_notes,parent,false))
+        if (viewType == TYPE_INFO){
+            MyViewHolder(
+                LayoutInflater.from(parent.context).inflate(R.layout.item_notes, parent, false)
+            )
+
+        }else {
+            AddButtonViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_add_button,
+                parent,false))
+        }
 
 
-inner class MyViewHolder(itemView: View) : BaseViewHolder<Note>(itemView) {
+class MyViewHolder(itemView: View) : BaseViewHolder<Note>(itemView) {
     override fun onBind(data: Note) {
         (itemView as NoteView).initView(data)
     }
-
 }
+
+     class AddButtonViewHolder(view:View):BaseRecyclerAdapter.AddButtonViewHolder(view){
+        override fun onBind(data: Unit) {
+            view.buttonText.text = view.context.getString(R.string.add_button_note)
+        }
+
+    }
 }
