@@ -7,6 +7,7 @@ import com.dharmendra.intermediatekotlin.Note
 import com.dharmendra.intermediatekotlin.model.INoteModel
 import com.dharmendra.intermediatekotlin.model.NoteLoaclModel
 import com.dharmendra.intermediatekotlin.notes.NoteListViewContract
+import com.dharmendra.intermediatekotlin.singleton.ApplicationScope
 import toothpick.Toothpick
 import toothpick.config.Module
 import javax.inject.Inject
@@ -18,13 +19,7 @@ class NoteViewModel:ViewModel(),NoteListViewContract {
     val liveData : LiveData<MutableList<Note>> = mutableLiveData
 
     init {
-        val scope = Toothpick.openScope(this)
-        scope.installModules(object :Module(){
-            init {
-                bind(INoteModel::class.java).toInstance(NoteLoaclModel())
-            }
-        })
-        Toothpick.inject(this,scope)
+        Toothpick.inject(this,ApplicationScope.scope)
         mutableLiveData.postValue(noteModel.getFakeData())
     }
 
