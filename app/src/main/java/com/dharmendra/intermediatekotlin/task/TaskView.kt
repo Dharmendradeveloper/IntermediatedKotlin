@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.dharmendra.intermediatekotlin.R
 import com.dharmendra.intermediatekotlin.Task
+import com.dharmendra.intermediatekotlin.extfunction.removeStrikeThrough
+import com.dharmendra.intermediatekotlin.extfunction.setStrikeThrough
 import com.dharmendra.intermediatekotlin.todo.TodoView
 import kotlinx.android.synthetic.main.item_task.view.*
 
@@ -23,9 +25,9 @@ class TaskView @JvmOverloads constructor(
                     initView(todo){isChecked->
                         todoCheckedCallback.invoke(todoIndexed,isChecked)
                         if (isTaskCompleted())
-                            createStrikeThrough()
+                            this@TaskView.titleView.setStrikeThrough()
                         else
-                            removeStrikeThrough()
+                            this@TaskView.titleView.removeStrikeThrough()
                     }
             }
             todoContainer.addView(todoView)
@@ -34,15 +36,15 @@ class TaskView @JvmOverloads constructor(
 
     private fun isTaskCompleted():Boolean=task.todo!!.filter{!it.isComplete}.isEmpty()
 
-    private fun createStrikeThrough(){
-        titleView.apply{
-            paintFlags = paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-        }
-    }
+//    private fun createStrikeThrough(){
+//        titleView.apply{
+//            paintFlags = paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+//        }
+//    }
 
-    private fun removeStrikeThrough(){
-        titleView.apply{
-            paintFlags = paintFlags or Paint.STRIKE_THRU_TEXT_FLAG.inv()
-        }
-    }
+//    private fun removeStrikeThrough(){
+//        titleView.apply{
+//            paintFlags = paintFlags or Paint.STRIKE_THRU_TEXT_FLAG.inv()
+//        }
+//    }
 }

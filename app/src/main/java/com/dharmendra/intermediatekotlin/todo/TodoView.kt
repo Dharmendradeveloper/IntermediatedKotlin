@@ -9,6 +9,8 @@ import androidx.constraintlayout.widget.ConstraintLayout
 
 import android.widget.CompoundButton
 import com.dharmendra.intermediatekotlin.Todo
+import com.dharmendra.intermediatekotlin.extfunction.removeStrikeThrough
+import com.dharmendra.intermediatekotlin.extfunction.setStrikeThrough
 import kotlinx.android.synthetic.main.view_todo.view.*
 
 class TodoView @JvmOverloads constructor(context: Context,
@@ -19,7 +21,7 @@ defStyleAttr: Int=1)  : ConstraintLayout(context,attrs,defStyleAttr) {
         descriptionView.setText(todo.description)
         completeCheckBox.setChecked(todo.isComplete)
         if (todo.isComplete) {
-            createStrikeThrough()
+            descriptionView.setStrikeThrough()
         }
         setUpCheckStateListener(todo,callbacks )
     }
@@ -31,22 +33,22 @@ defStyleAttr: Int=1)  : ConstraintLayout(context,attrs,defStyleAttr) {
             todo.isComplete = isChecked
             callbacks?.invoke(isChecked)
             if (isChecked)
-                createStrikeThrough()
+                descriptionView.setStrikeThrough()
             else
-                removeStrikeThrough()
+                descriptionView.removeStrikeThrough()
         }
     }
 
-    private fun createStrikeThrough() {
-        descriptionView.apply {
-            paintFlags = paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-        }
-    }
+//    private fun createStrikeThrough() {
+//        descriptionView.apply {
+//            paintFlags = paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+//        }
+//    }
 
-    private fun removeStrikeThrough() {
-        descriptionView.apply {
-            paintFlags = paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
-
-        }
-    }
+//    private fun removeStrikeThrough() {
+//        descriptionView.apply {
+//            paintFlags = paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
+//
+//        }
+//    }
 }
