@@ -7,15 +7,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dharmendra.intermediatekotlin.R
 import com.dharmendra.intermediatekotlin.Task
 import com.dharmendra.intermediatekotlin.adapter.TaskAdapter
 import com.dharmendra.intermediatekotlin.Todo
+import com.dharmendra.intermediatekotlin.viewodel.TaskViewModel
 import kotlinx.android.synthetic.main.fragment_task_list.*
 
 class TaskListFragment : Fragment() {
     lateinit var touchActionDelegate: TouchActionDelegate
+    lateinit var taskViewModel: TaskViewModel
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -40,14 +44,15 @@ class TaskListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        bindViewModel()
         recycler.layoutManager = LinearLayoutManager(context)
-        val adapter = TaskAdapter(mutableListOf(
-            Task("One day is Done", mutableListOf(
-            Todo("Day 3",true), Todo("Day 4",false)
-        )),
-        Task("Seven days are left", mutableListOf(Todo("Day 5",false), Todo("Day 6",true)))
-        ),touchActionDelegate)
+        val adapter = TaskAdapter(taskViewModel.getFakeData(),touchActionDelegate)
         recycler.adapter = adapter
+
+    }
+
+    private fun bindViewModel(){
+        taskViewModel = ViewModelProvider(this).get(TaskViewModel::class.java)
     }
 
     companion object {

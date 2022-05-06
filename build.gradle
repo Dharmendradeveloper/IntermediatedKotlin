@@ -13,6 +13,8 @@ buildscript {
     }
     ext{
         nav_version = "2.3.1"
+         lifecycle_version = "2.5.0-beta01"
+         arch_version = "2.1.0"
     }
 }
 
