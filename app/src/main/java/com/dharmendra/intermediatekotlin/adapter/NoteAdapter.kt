@@ -1,7 +1,6 @@
 package com.dharmendra.intermediatekotlin.adapter
 
 import android.view.LayoutInflater
-import android.view.TouchDelegate
 import android.view.View
 import android.view.ViewGroup
 import com.dharmendra.intermediatekotlin.Note
@@ -9,10 +8,15 @@ import com.dharmendra.intermediatekotlin.notes.NoteView
 import com.dharmendra.intermediatekotlin.R
 import com.dharmendra.intermediatekotlin.foundations.BaseRecyclerAdapter
 import com.dharmendra.intermediatekotlin.navigation.NavigationActivity
+import com.dharmendra.intermediatekotlin.notes.NoteListViewContract
 import com.dharmendra.intermediatekotlin.task.NotesListFragment
 import kotlinx.android.synthetic.main.view_add_button.view.*
 
-class NoteAdapter( notesList:MutableList<Note> = mutableListOf(),val touchActionDelegate: NotesListFragment.TouchActionDelegate):
+class NoteAdapter(
+    notesList: MutableList<Note> = mutableListOf(),
+    val touchActionDelegate: NotesListFragment.TouchActionDelegate,
+    dataActionDelegate: NoteListViewContract
+):
     BaseRecyclerAdapter<Note>(notesList) {
 
 
