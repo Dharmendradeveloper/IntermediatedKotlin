@@ -18,12 +18,6 @@ class TaskAdapter(taskList:MutableList<Task> = mutableListOf(),
                   val touchActionDelegate: TaskListFragment.TouchActionDelegate):
     BaseRecyclerAdapter<Task>(taskList) {
 
-    fun updateList(list: MutableList<Task>){
-        masterList.clear()
-        masterList.addAll(list)
-        notifyDataSetChanged()
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)=
         if (viewType == TYPE_INFO) {
             MyViewHolder(

@@ -15,11 +15,7 @@ import kotlinx.android.synthetic.main.view_add_button.view.*
 class NoteAdapter( notesList:MutableList<Note> = mutableListOf(),val touchActionDelegate: NotesListFragment.TouchActionDelegate):
     BaseRecyclerAdapter<Note>(notesList) {
 
-    public fun updateList(list:MutableList<Note>){
-        masterList.clear()
-        masterList.addAll(list)
-        notifyDataSetChanged()
-    }
+
 
     override fun getItemCount(): Int = masterList.size+1
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)=

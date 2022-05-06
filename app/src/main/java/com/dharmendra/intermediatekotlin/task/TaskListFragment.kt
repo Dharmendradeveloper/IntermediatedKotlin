@@ -46,11 +46,11 @@ class TaskListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        bindViewModel()
+
         recycler.layoutManager = LinearLayoutManager(context)
         adapter = TaskAdapter(touchActionDelegate = touchActionDelegate)
         recycler.adapter = adapter
-
+        bindViewModel()
     }
 
     private fun bindViewModel(){

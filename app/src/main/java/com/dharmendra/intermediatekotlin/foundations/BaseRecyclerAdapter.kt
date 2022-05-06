@@ -13,6 +13,12 @@ abstract class BaseRecyclerAdapter<T:Any>(protected val masterList:MutableList<T
     }
     override fun getItemCount(): Int = masterList.size
 
+    public fun updateList(list:MutableList<T>){
+        masterList.clear()
+        masterList.addAll(list)
+        notifyDataSetChanged()
+    }
+
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is AddButtonViewHolder){
             holder.onBind(Unit)
